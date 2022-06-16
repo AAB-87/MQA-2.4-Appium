@@ -6,6 +6,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import ru.neology.pages.MainAppPage;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class AppiumUITest {
@@ -28,31 +29,53 @@ public class AppiumUITest {
         driver = new AndroidDriver(remoteUrl, desiredCapabilities);
     }
 
-    @Test
-    public void sampleTest1() {
-        MobileElement el1 = (MobileElement) driver.findElementById("ru.netology.testing.uiautomator:id/userInput");
-        el1.click();
-        el1.sendKeys("  ");
-        MobileElement el2 = (MobileElement) driver.findElementById("ru.netology.testing.uiautomator:id/buttonChange");
-        el2.click();
-        MobileElement els1 = (MobileElement) driver.findElementById("textToBeChanged");
+//    @Test
+//    public void sampleTest1() {
+//        MobileElement el1 = (MobileElement) driver.findElementById("ru.netology.testing.uiautomator:id/userInput");
+//        el1.click();
+//        el1.sendKeys("  ");
+//        MobileElement el2 = (MobileElement) driver.findElementById("ru.netology.testing.uiautomator:id/buttonChange");
+//        el2.click();
+//        MobileElement els1 = (MobileElement) driver.findElementById("textToBeChanged");
+//
+//        Assertions.assertEquals("Hello UiAutomator!", els1.getText());
+//    }
+//
+//    @Test
+//    public void sampleTest2() {
+//        MobileElement el3 = (MobileElement) driver.findElementById("ru.netology.testing.uiautomator:id/userInput");
+//        el3.click();
+//        el3.sendKeys("2");
+//        MobileElement el4 = (MobileElement) driver.findElementById("ru.netology.testing.uiautomator:id/buttonActivity");
+//        el4.click();
+//        MobileElement el5 = (MobileElement) driver.findElementByXPath("/hierarchy/android.widget.FrameLayout");
+//        el5.click();
+//        MobileElement els2 = (MobileElement) driver.findElementById("text");
+//
+//        Assertions.assertEquals("2", els2.getText());
+//    }
 
-        Assertions.assertEquals("Hello UiAutomator!", els1.getText());
+    @Test
+    public void test1() {
+        MainAppPage page = new MainAppPage(driver);
+        page.userInput.click();
+        page.userInput.sendKeys("  ");
+        page.buttonChange.click();
+
+        Assertions.assertEquals("Hello UiAutomator!", page.textToBeChanged.getText());
     }
 
     @Test
-    public void sampleTest2() {
-        MobileElement el3 = (MobileElement) driver.findElementById("ru.netology.testing.uiautomator:id/userInput");
-        el3.click();
-        el3.sendKeys("2");
-        MobileElement el4 = (MobileElement) driver.findElementById("ru.netology.testing.uiautomator:id/buttonActivity");
-        el4.click();
-        MobileElement el5 = (MobileElement) driver.findElementByXPath("/hierarchy/android.widget.FrameLayout");
-        el5.click();
-        MobileElement els2 = (MobileElement) driver.findElementById("text");
+    public void test2() {
+        MainAppPage page = new MainAppPage(driver);
+        page.userInput.click();
+        page.userInput.sendKeys("2");
+        page.buttonActivity.click();
+        page.textActivity.click();
 
-        Assertions.assertEquals("2", els2.getText());
+        Assertions.assertEquals("2", page.text.getText());
     }
+
 
     @AfterAll
     public void tearDown() {
